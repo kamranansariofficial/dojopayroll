@@ -1,0 +1,36 @@
+ @media only screen and (max-width: 768px) {
+  .slider {
+  text-align: center;
+  }
+  .slider img {
+  margin-left: auto;
+  margin-right: auto;
+  }
+ }
+ @media (min-width: 1280px) {
+  .MuiContainer-maxWidthLg {
+  max-width: 1140px!important;
+  }
+ }
+
+ .slick-prev:before{
+   display: none;
+ }
+ .slick-prev:hover, .slick-prev:focus, .slick-next:hover, .slick-prev:focus{
+   background-color: transparent!important;
+   color: inherit;
+ }
+ .slick-next:before{
+  display: none;
+}
+.slick-next:hover, .slick-next:focus, .slick-next:hover, .slick-next:focus{
+  background-color: !important;
+  color: inherit;
+}
+ .slick-arrow{
+  position: absolute!important;
+ }
+ a{
+   text-decoration: none;
+ }
+
