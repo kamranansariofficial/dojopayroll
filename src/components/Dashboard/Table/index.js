@@ -16,6 +16,7 @@ const useStyles = makeStyles({
   },
   link: {
     color: "#159bfb!important",
+    display: "block",
   },
 });
 
@@ -137,9 +138,10 @@ export default function BasicTable() {
               <TableCell component="th" scope="row">
                 {row.name}
               </TableCell>
-              <Link href="#">
-                <TableCell className={classes.link}>{row.calories}</TableCell>
-              </Link>
+
+              <TableCell className={classes.link}>
+                <Link href="#">{row.calories}</Link>
+              </TableCell>
               <TableCell>{row.fat}</TableCell>
               <TableCell>{row.carbs}</TableCell>
               <TableCell>{row.protein}</TableCell>
@@ -147,9 +149,10 @@ export default function BasicTable() {
               <TableCell>{row.fats}</TableCell>
               <TableCell>{row.carbss}</TableCell>
               <TableCell>{row.proteins}</TableCell>
-              <Link href="/paystub">
-                <TableCell className={classes.link}>{row.link}</TableCell>
-              </Link>
+
+              <TableCell className={classes.link}>
+                <Link href="/paystub">{row.link}</Link>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

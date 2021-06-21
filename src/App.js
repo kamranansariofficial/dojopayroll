@@ -10,7 +10,7 @@ import Home from '../src/components/Home';
 import SignUp from './components/Signup';
 import Dashboard from '../src/components/Dashboard';
 import Checkout from '../src/components/CheckOut';
-import { ThemeProvider} from '@material-ui/core';
+import { ThemeProvider, CssBaseline} from '@material-ui/core';
 import theme from './theme';
 import Layout from './components/Layout/Layouts'
 import Paystub from './components/Dashboard/Paystub'
@@ -20,6 +20,7 @@ import Paystub from './components/Dashboard/Paystub'
 export default function App() {
   return (
     <ThemeProvider theme={theme}>
+      <CssBaseline />
     <Router>
         <Switch>
           <Route exact path="/">

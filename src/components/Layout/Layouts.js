@@ -17,6 +17,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Dojo from "../assets/images/dojo(1).png";
 import Box from "@material-ui/core/Box";
 import Avatar from "@material-ui/core/Avatar";
+import PinkLogo from "../assets/images/pink-logo.png";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import QueryBuilderIcon from "@material-ui/icons/QueryBuilder";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
@@ -24,7 +25,6 @@ import BookIcon from "@material-ui/icons/Book";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import { FaSearch } from "react-icons/fa";
 import DrawerMobile from "../Navbar/Drawer";
-import { Link } from 'react-router-dom'
 
 const drawerWidth = 240;
 
@@ -156,15 +156,17 @@ export default function MiniDrawer({ children }) {
       <CssBaseline />
       <AppBar
         position="fixed"
+        onMouseLeave={handleDrawerClose}
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open,
+
         })}
       >
         <Toolbar>
           <IconButton
             color="inherit"
             aria-label="open drawer"
-            onClick={handleDrawerOpen}
+            onMouseOver={handleDrawerOpen}
             edge="start"
             className={clsx(classes.menuButton, {
               [classes.hide]: open,
@@ -191,13 +193,15 @@ export default function MiniDrawer({ children }) {
           </IconButton>
           <Box ml="auto">
             <IconButton>
-              <Avatar src="../assets/images/images.png" />
+              <Avatar src={PinkLogo} />
             </IconButton>
           </Box>
         </Toolbar>
       </AppBar>
       <Drawer
         variant="permanent"
+        onMouseOver={handleDrawerOpen}
+        onMouseLeave={handleDrawerClose}
         className={clsx(classes.drawer, {
           [classes.drawerOpen]: open,
           [classes.drawerClose]: !open,
@@ -217,7 +221,7 @@ export default function MiniDrawer({ children }) {
           width="80"
         />
         <div className={classes.toolbar}>
-          <IconButton onClick={handleDrawerClose}>
+          <IconButton >
             {theme.direction === "rtl" ? (
               <ChevronRightIcon className={classes.iconcolor} />
             ) : (

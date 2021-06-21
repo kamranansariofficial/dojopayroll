@@ -1,29 +1,8 @@
 import React from 'react';
-import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import CssBaseline from '@material-ui/core/CssBaseline';
+import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
-import Dojo from "../assets/images/dojo(1).png";
 import Box from '@material-ui/core/Box';
 import Table from '../Dashboard/Table';
-import Card from './Paystub';
-import {
-    FaSearch
-  } from "react-icons/fa";
 
 const drawerWidth = 240;
 
@@ -124,16 +103,16 @@ const useStyles = makeStyles((theme) => ({
       fontSize:'14px',
       fontWeight:'600',
   },
-  
+
 }));
 
 export default function MiniDrawer() {
   const classes = useStyles();
- 
+
 
   return (
     <div className={classes.root}>
-   
+
         <Box p={5} my={5} >
         <Table />
         </Box>
@@ -142,7 +121,7 @@ export default function MiniDrawer() {
               © 2020 Support: (513) 580-4717.
           </Typography>
       </Box>
-      
+
     </div>
   );
 }

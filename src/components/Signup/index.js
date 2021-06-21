@@ -84,7 +84,7 @@ export default function CenteredGrid() {
               <Typography className={classes.signheading}>Sign Up</Typography>
               <Typography className={classes.signtext}>
                 Already signed up?{" "}
-                <a className={classes.loginlink} href="#">
+                <a className={classes.loginlink} href="/">
                   {" "}
                   Log In{" "}
                 </a>{" "}
@@ -95,7 +95,6 @@ export default function CenteredGrid() {
                 <Box px={4} pb={2}>
                   <TextField
                     className={classes.inputTextField}
-                    id="outlined-basic"
                     variant="outlined"
                     size="small"
                     fullWidth
@@ -107,7 +106,6 @@ export default function CenteredGrid() {
                 <Box px={4} pb={2}>
                   <TextField
                     className={classes.inputTextField}
-                    id="outlined-basic"
                     variant="outlined"
                     size="small"
                     fullWidth
@@ -117,7 +115,6 @@ export default function CenteredGrid() {
                 <Box px={4} pb={1}>
                   <TextField
                     className={classes.inputTextField}
-                    id="outlined-basic"
                     type="password"
                     variant="outlined"
                     size="small"
@@ -134,12 +131,12 @@ export default function CenteredGrid() {
                       size="small"
                     />
                     I agree with Tivo's{" "}
-                    <a className={classes.checklink} href="#">
+                    <a className={classes.checklink} href="/">
                       {" "}
                       Privacy Policy{" "}
                     </a>{" "}
                     and{" "}
-                    <a className={classes.checklink} href="#">
+                    <a className={classes.checklink} href="/">
                       {" "}
                       Terms Conditions{" "}
                     </a>

@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
 import {
   Container,
   Box,
@@ -8,6 +8,7 @@ import {
   Button,
   Grid,
   IconButton,
+  Switch,
 } from "@material-ui/core";
 import Description1 from "../assets/images/description-1.png";
 import Description2 from "../assets/images/description-2.png";
@@ -17,16 +18,19 @@ import Hand from "../assets/images/ai-hand.png";
 import Pro from "../assets/images/elegant-pro.png";
 import Start from "../assets/images/elegant-start.png";
 import Ultimate from "../assets/images/elegant-ultimate.png";
-import testimonial from "../assets/images/testimonial-1.jpeg";
+import testimonial1 from "../assets/images/testimonial-1.jpeg";
+import testimonial2 from "../assets/images/testimonial-2.jpeg";
+import testimonial3 from "../assets/images/testimonial-3.jpeg";
+import testimonial4 from "../assets/images/testimonial-4.jpeg";
 import StopIcon from "@material-ui/icons/Stop";
 import Slider from "react-slick";
 import Typewriter from "typewriter-effect";
 import Navbar from "../Navbar";
 import Footer from "../Footer";
-import "../../App.css";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
+import CheckIcon from "@material-ui/icons/Check";
 
 const useStyles = makeStyles((theme) => ({
   herobg: {
@@ -103,6 +107,10 @@ const useStyles = makeStyles((theme) => ({
     transform: "translate(0px, 5px)",
     paddingRight: "10px",
   },
+  CheckIcon: {
+    color: "#5f4dee",
+    paddingLeft: "30px",
+  },
   handbtn: {
     marginTop: "25px",
     border: "2px solid transparent",
@@ -166,9 +174,10 @@ const useStyles = makeStyles((theme) => ({
   priceoptn: {
     fontSize: "32px",
     fontWeight: 700,
+    marginBottom: 23,
   },
   priceclick: {
-    fontSize: "18px",
+    fontSize: "14px",
     color: "#919191",
   },
   imgtestimonial: {
@@ -182,6 +191,8 @@ const useStyles = makeStyles((theme) => ({
   },
   slidertext: {
     paddingTop: "30px",
+    paddingLeft: 12,
+    paddingRight: 12,
     fontSize: "16px",
     color: "#555555",
     fontStyle: "italic",
@@ -201,19 +212,104 @@ const useStyles = makeStyles((theme) => ({
   meditext: {
     [theme.breakpoints.between("xs", "md")]: {
       textAlign: "center",
+      marginLeft: "10px",
+      marginRight: "10px",
+    },
+  },
+  mediaiconbtn: {
+    "&.slick-prev": {
+      [theme.breakpoints.between("xs", "sm")]: {
+        left: "20px!important",
+      },
     },
   },
   arrowicon: {
     fontSize: "50px",
     color: "#5555",
     [theme.breakpoints.between("xs", "sm")]: {
-      display: "none",
+      fontSize: "30px",
     },
   },
 }));
 
+const AntSwitch = withStyles((theme) => ({
+  root: {
+    width: 70,
+    height: 30,
+    padding: 0,
+    overflow: "visible",
+    display: "flex",
+  },
+  switchBase: {
+    padding: 2,
+    color: "#fff",
+    "& + $track": {
+      backgroundColor: theme.palette.primary.main,
+    },
+    "&$checked": {
+      transform: "translateX(38px)",
+      color: theme.palette.common.white,
+      "& + $track": {
+        opacity: 1,
+        backgroundColor: theme.palette.primary.main,
+        borderColor: theme.palette.primary.main,
+      },
+    },
+  },
+  thumb: {
+    width: 27,
+    paddingBottom: 1,
+    height: 27,
+    boxShadow: "none",
+  },
+  track: {
+    border: `1px solid ${theme.palette.grey[500]}`,
+    borderRadius: "2rem",
+    opacity: 1,
+    backgroundColor: theme.palette.common.white,
+  },
+  checked: {},
+}))(Switch);
+
 export default function ButtonAppBar() {
   const classes = useStyles();
+  const [state, setState] = React.useState({
+    checkedC: true,
+  });
+  const SlickArrowRight = ({ currentSlide, slideCount, ...props }) => (
+    <IconButton
+      {...props}
+      disableRipple
+      className={
+        "slick-prev slick-arrow" +
+        (currentSlide === slideCount - 1 ? " slick-disabled" : "")
+      }
+      aria-hidden="true"
+      aria-disabled={currentSlide === slideCount - 1 ? true : false}
+      type="button"
+    >
+      <ArrowBackIosIcon className={classes.arrowicon} />
+    </IconButton>
+  );
+  const SlickArrowLeft = ({ currentSlide, slideCount, ...props }) => (
+    <IconButton
+      {...props}
+      disableRipple
+      className={
+        "slick-next slick-arrow" +
+        (currentSlide === slideCount - 1 ? " slick-disabled" : "")
+      }
+      aria-hidden="true"
+      aria-disabled={currentSlide === slideCount - 1 ? true : false}
+      type="button"
+    >
+      <ArrowForwardIosIcon className={classes.arrowicon} />
+    </IconButton>
+  );
+
+  const handleChange = (event) => {
+    setState({ ...state, [event.target.name]: event.target.checked });
+  };
 
   const settings = {
     dots: false,
@@ -223,17 +319,8 @@ export default function ButtonAppBar() {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 3000,
-    prevArrow: (
-      <IconButton disableRipple className="slick-icon">
-        <ArrowBackIosIcon className={classes.arrowicon} />
-      </IconButton>
-    ),
-    nextArrow: (
-      <IconButton disableRipple className="slick-icon">
-        <ArrowForwardIosIcon className={classes.arrowicon} />
-      </IconButton>
-    ),
-    //
+    prevArrow: <SlickArrowRight />,
+    nextArrow: <SlickArrowLeft />,
   };
   return (
     <div className={classes.root}>
@@ -248,6 +335,11 @@ export default function ButtonAppBar() {
                 </Typography>
                 <Typography className={classes.textfont} variant="h1">
                   <Typewriter
+                    options={{
+                      autoStart: true,
+                      loop: true,
+                      cursor: "",
+                    }}
                     onInit={(typewriter) => {
                       typewriter
                         .start()
@@ -401,6 +493,25 @@ export default function ButtonAppBar() {
             <Typography className={classes.priceoptn}>
               Pricing Options
             </Typography>
+            <Typography component="div">
+              <Grid
+                component="label"
+                container
+                alignItems="center"
+                justify="center"
+                spacing={1}
+              >
+                <Grid item>Annually</Grid>
+                <Grid item>
+                  <AntSwitch
+                    checked={state.checkedC}
+                    onChange={handleChange}
+                    name="checkedC"
+                  />
+                </Grid>
+                <Grid item>Monthly</Grid>
+              </Grid>
+            </Typography>
           </Box>
           <Container maxWidth="md">
             <Grid container spacing={7}>
@@ -415,19 +526,85 @@ export default function ButtonAppBar() {
                   />
                   <Paper className={classes.paper}>
                     <Typography className={classes.pricerate} variant="h6">
-                      <sup className={classes.pricetag}>$</sup>15
-                      <sub className={classes.pricemonth}>/month</sub>
+                      <sup className={classes.pricetag}>$</sup>
+                      {state.checkedC ? 180 : 15}
+                      <sub className={classes.pricemonth}>
+                        {state.checkedC ? "/year" : "/month"}
+                      </sub>
                     </Typography>
                     <Box py={3} color="#55555">
-                      <Typography className={classes.priceclick}>
-                        feature name
-                      </Typography>
-                      <Typography className={classes.priceclick}>
-                        feature name
-                      </Typography>
-                      <Typography className={classes.priceclick}>
-                        feature name
-                      </Typography>
+                      <Grid container spacing={1}>
+                        <Grid item xs={2}>
+                          <CheckIcon className={classes.CheckIcon} />
+                        </Grid>
+                        <Grid item xs={10}>
+                          <Box mx={3} textAlign="left">
+                            <Typography className={classes.priceclick}>
+                              Payroll Automation
+                            </Typography>
+                          </Box>
+                        </Grid>
+                        <Grid item xs={2}>
+                          <CheckIcon className={classes.CheckIcon} />
+                        </Grid>
+                        <Grid item xs={10}>
+                          <Box mx={3} textAlign="left">
+                            <Typography className={classes.priceclick}>
+                              No friction time tracking
+                            </Typography>
+                          </Box>
+                        </Grid>
+                        <Grid item xs={2}>
+                          <CheckIcon className={classes.CheckIcon} />
+                        </Grid>
+                        <Grid item xs={10}>
+                          <Box mx={3} textAlign="left">
+                            <Typography className={classes.priceclick}>
+                              Calculate taxes and deductions automatically
+                            </Typography>
+                          </Box>
+                        </Grid>
+                        <Grid item xs={2}>
+                          <CheckIcon className={classes.CheckIcon} />
+                        </Grid>
+                        <Grid item xs={10}>
+                          <Box mx={3} textAlign="left">
+                            <Typography className={classes.priceclick}>
+                              Generate paystubs in pdf
+                            </Typography>
+                          </Box>
+                        </Grid>
+                        <Grid item xs={2}>
+                          <CheckIcon className={classes.CheckIcon} />
+                        </Grid>
+                        <Grid item xs={10}>
+                          <Box mx={3} textAlign="left">
+                            <Typography className={classes.priceclick}>
+                              Download paystubs anytime, on demand
+                            </Typography>
+                          </Box>
+                        </Grid>
+                        <Grid item xs={2}>
+                          <CheckIcon className={classes.CheckIcon} />
+                        </Grid>
+                        <Grid item xs={10}>
+                          <Box mx={3} textAlign="left">
+                            <Typography className={classes.priceclick}>
+                              Unlimited employees
+                            </Typography>
+                          </Box>
+                        </Grid>
+                        <Grid item xs={2}>
+                          <CheckIcon className={classes.CheckIcon} />
+                        </Grid>
+                        <Grid item xs={10}>
+                          <Box mx={3} textAlign="left">
+                            <Typography className={classes.priceclick}>
+                              No hardware necessary
+                            </Typography>
+                          </Box>
+                        </Grid>
+                      </Grid>
                     </Box>
                     <Link to="/sign-up">
                       <Button
@@ -454,22 +631,95 @@ export default function ButtonAppBar() {
                   />
                   <Paper className={classes.paper}>
                     <Typography className={classes.pricerate} variant="h6">
-                      <sup className={classes.pricetag}>$</sup>25
-                      <sub className={classes.pricemonth}>/month</sub>
+                      <sup className={classes.pricetag}>$</sup>
+                      {state.checkedC ? 180 : 15}
+                      <sub className={classes.pricemonth}>
+                        {state.checkedC ? "/year" : "/month"}
+                      </sub>
                     </Typography>
                     <Box py={5} color="#55555">
-                      <Typography className={classes.priceclick}>
-                        feature name
-                      </Typography>
-                      <Typography className={classes.priceclick}>
-                        feature name
-                      </Typography>
-                      <Typography className={classes.priceclick}>
-                        feature name
-                      </Typography>
-                      <Typography className={classes.priceclick}>
-                        feature name
-                      </Typography>
+                      <Grid container spacing={1}>
+                        <Grid item xs={2}>
+                          <CheckIcon className={classes.CheckIcon} />
+                        </Grid>
+                        <Grid item xs={10}>
+                          <Box mx={3} textAlign="left">
+                            <Typography className={classes.priceclick}>
+                              Payroll Plan
+                            </Typography>
+                          </Box>
+                        </Grid>
+                        <Grid item xs={2}>
+                          <CheckIcon className={classes.CheckIcon} />
+                        </Grid>
+                        <Grid item xs={10}>
+                          <Box mx={3} textAlign="left">
+                            <Typography className={classes.priceclick}>
+                              QBO Management
+                            </Typography>
+                          </Box>
+                        </Grid>
+                        <Grid item xs={2}>
+                          <CheckIcon className={classes.CheckIcon} />
+                        </Grid>
+                        <Grid item xs={10}>
+                          <Box mx={3} textAlign="left">
+                            <Typography className={classes.priceclick}>
+                              Monthly bank reconciliation
+                            </Typography>
+                          </Box>
+                        </Grid>
+                        <Grid item xs={2}>
+                          <CheckIcon className={classes.CheckIcon} />
+                        </Grid>
+                        <Grid item xs={10}>
+                          <Box mx={3} textAlign="left">
+                            <Typography className={classes.priceclick}>
+                              Automate State tax filings
+                            </Typography>
+                          </Box>
+                        </Grid>
+                        <Grid item xs={2}>
+                          <CheckIcon className={classes.CheckIcon} />
+                        </Grid>
+                        <Grid item xs={10}>
+                          <Box mx={3} textAlign="left">
+                            <Typography className={classes.priceclick}>
+                              Automate Federal filings (1040 included)
+                            </Typography>
+                          </Box>
+                        </Grid>
+                        <Grid item xs={2}>
+                          <CheckIcon className={classes.CheckIcon} />
+                        </Grid>
+                        <Grid item xs={10}>
+                          <Box mx={3} textAlign="left">
+                            <Typography className={classes.priceclick}>
+                              W-2s and 1099s filed and mailed
+                            </Typography>
+                          </Box>
+                        </Grid>
+                        <Grid item xs={2}>
+                          <CheckIcon className={classes.CheckIcon} />
+                        </Grid>
+                        <Grid item xs={10}>
+                          <Box mx={3} textAlign="left">
+                            <Typography className={classes.priceclick}>
+                              Post-tax deductions and reimbursements
+                            </Typography>
+                          </Box>
+                        </Grid>
+                        <Grid item xs={2}>
+                          <CheckIcon className={classes.CheckIcon} />
+                        </Grid>
+                        <Grid item xs={10}>
+                          <Box mx={3} textAlign="left">
+                            <Typography className={classes.priceclick}>
+                              Sick leave and paid time off
+                            </Typography>
+                          </Box>
+                        </Grid>
+                      </Grid>
                     </Box>
                     <Button
                       className={classes.handbtn}
@@ -494,19 +744,83 @@ export default function ButtonAppBar() {
                   />
                   <Paper className={classes.paper}>
                     <Typography className={classes.pricerate} variant="h6">
-                      <sup className={classes.pricetag}>$</sup>35
-                      <sub className={classes.pricemonth}>/month</sub>
+                      <sup className={classes.pricetag}>$</sup>
+                      {state.checkedC ? 180 : 15}
+                      <sub className={classes.pricemonth}>
+                        {state.checkedC ? "/year" : "/month"}
+                      </sub>
                     </Typography>
                     <Box py={3} color="#55555">
-                      <Typography className={classes.priceclick}>
-                        feature name
-                      </Typography>
-                      <Typography className={classes.priceclick}>
-                        feature name
-                      </Typography>
-                      <Typography className={classes.priceclick}>
-                        feature name
-                      </Typography>
+                      <Grid container spacing={1}>
+                        <Grid item xs={2}>
+                          <CheckIcon className={classes.CheckIcon} />
+                        </Grid>
+                        <Grid item xs={10}>
+                          <Box mx={3} textAlign="left">
+                            <Typography className={classes.priceclick}>
+                              Payroll plan
+                            </Typography>
+                          </Box>
+                        </Grid>
+                        <Grid item xs={2}>
+                          <CheckIcon className={classes.CheckIcon} />
+                        </Grid>
+                        <Grid item xs={10}>
+                          <Box mx={3} textAlign="left">
+                            <Typography className={classes.priceclick}>
+                              Bookkeeping plan
+                            </Typography>
+                          </Box>
+                        </Grid>
+                        <Grid item xs={2}>
+                          <CheckIcon className={classes.CheckIcon} />
+                        </Grid>
+                        <Grid item xs={10}>
+                          <Box mx={3} textAlign="left">
+                            <Typography className={classes.priceclick}>
+                              Tax planning
+                            </Typography>
+                          </Box>
+                        </Grid>
+                        <Grid item xs={2}>
+                          <CheckIcon className={classes.CheckIcon} />
+                        </Grid>
+                        <Grid item xs={10}>
+                          <Box mx={3} textAlign="left">
+                            <Typography className={classes.priceclick}>
+                              Business insurance administration
+                            </Typography>
+                          </Box>
+                        </Grid>
+                        <Grid item xs={2}>
+                          <CheckIcon className={classes.CheckIcon} />
+                        </Grid>
+                        <Grid item xs={10}>
+                          <Box mx={3} textAlign="left">
+                            <Typography className={classes.priceclick}>
+                              Workers’ compensation administration
+                            </Typography>
+                          </Box>
+                        </Grid>
+                        <Grid item xs={2}>
+                          <CheckIcon className={classes.CheckIcon} />
+                        </Grid>
+                        <Grid item xs={10}>
+                          <Box mx={3} textAlign="left">
+                            <Typography className={classes.priceclick}>
+                              Business consulting
+                            </Typography>
+                          </Box>
+                        </Grid>
+                        <Grid item xs={2}></Grid>
+                        <Grid item xs={10}>
+                          <Box mx={3} textAlign="left">
+                            <Typography
+                              className={classes.priceclick}
+                            ></Typography>
+                          </Box>
+                        </Grid>
+                      </Grid>
                     </Box>
                     <Link to="/sign-up">
                       <Button
@@ -528,13 +842,13 @@ export default function ButtonAppBar() {
       </Container>
       <Box pt={10} />
       <Container fixed>
-        <Slider className={classes.imgslider} {...settings}>
+        <Slider {...settings}>
           <div>
             <Grid container spacing={1}>
               <Grid item lg={3} md={3} sm={12} xs={12}>
                 <img
                   className={classes.imgtestimonial}
-                  src={testimonial}
+                  src={testimonial1}
                   alt="testimonial"
                   height="auto"
                   width="70%"
@@ -561,7 +875,7 @@ export default function ButtonAppBar() {
                 <Box className={classes.mediaimg}>
                   <img
                     className={classes.imgtestimonial}
-                    src={testimonial}
+                    src={testimonial2}
                     alt="testimonial"
                     height="auto"
                     width="70%"
@@ -571,13 +885,11 @@ export default function ButtonAppBar() {
               <Grid item lg={9} md={9} sm={12} xs={12}>
                 <Box className={classes.meditext}>
                   <Typography className={classes.slidertext}>
-                    Best payroll service out there. I especially love the Tax
-                    Reporting Tools because it gives me such a peace of mind
-                    knowing an AI will never forget to do my taxes like I do all
-                    the time, thank you guys.
+                    This is the best payroll automation service ever. Customer
+                    for life.
                   </Typography>
                   <Typography className={classes.sliderheading}>
-                    Jude Thorn - Online Marketer
+                    Marsha Singer - eCommerce
                   </Typography>
                 </Box>
               </Grid>
@@ -589,7 +901,7 @@ export default function ButtonAppBar() {
                 <Box className={classes.mediaimg}>
                   <img
                     className={classes.imgtestimonial}
-                    src={testimonial}
+                    src={testimonial3}
                     alt="testimonial"
                     height="auto"
                     width="70%"
@@ -599,13 +911,11 @@ export default function ButtonAppBar() {
               <Grid item lg={9} md={9} sm={12} xs={12}>
                 <Box className={classes.meditext}>
                   <Typography className={classes.slidertext}>
-                    Best payroll service out there. I especially love the Tax
-                    Reporting Tools because it gives me such a peace of mind
-                    knowing an AI will never forget to do my taxes like I do all
-                    the time, thank you guys.
+                    Awesome features for the money. I never thought such a low
+                    ammount of money would save me so much time and headaches.
                   </Typography>
                   <Typography className={classes.sliderheading}>
-                    Jude Thorn - Online Marketer
+                    Roy Smith - Barber
                   </Typography>
                 </Box>
               </Grid>
@@ -617,7 +927,7 @@ export default function ButtonAppBar() {
                 <Box className={classes.mediaimg}>
                   <img
                     className={classes.imgtestimonial}
-                    src={testimonial}
+                    src={testimonial4}
                     alt="testimonial"
                     height="auto"
                     width="70%"
@@ -633,63 +943,7 @@ export default function ButtonAppBar() {
                     the time, thank you guys.
                   </Typography>
                   <Typography className={classes.sliderheading}>
-                    Jude Thorn - Online Marketer
-                  </Typography>
-                </Box>
-              </Grid>
-            </Grid>
-          </div>
-          <div>
-            <Grid container spacing={1}>
-              <Grid item lg={3} md={3} sm={12} xs={12}>
-                <Box className={classes.mediaimg}>
-                  <img
-                    className={classes.imgtestimonial}
-                    src={testimonial}
-                    alt="testimonial"
-                    height="auto"
-                    width="70%"
-                  />
-                </Box>
-              </Grid>
-              <Grid item lg={9} md={9} sm={12} xs={12}>
-                <Box className={classes.meditext}>
-                  <Typography className={classes.slidertext}>
-                    Best payroll service out there. I especially love the Tax
-                    Reporting Tools because it gives me such a peace of mind
-                    knowing an AI will never forget to do my taxes like I do all
-                    the time, thank you guys.
-                  </Typography>
-                  <Typography className={classes.sliderheading}>
-                    Jude Thorn - Online Marketer
-                  </Typography>
-                </Box>
-              </Grid>
-            </Grid>
-          </div>
-          <div>
-            <Grid container spacing={1}>
-              <Grid item lg={3} md={3} sm={12} xs={12}>
-                <Box className={classes.mediaimg}>
-                  <img
-                    className={classes.imgtestimonial}
-                    src={testimonial}
-                    alt="testimonial"
-                    height="auto"
-                    width="70%"
-                  />
-                </Box>
-              </Grid>
-              <Grid item lg={9} md={9} sm={12} xs={12}>
-                <Box className={classes.meditext}>
-                  <Typography className={classes.slidertext}>
-                    Best payroll service out there. I especially love the Tax
-                    Reporting Tools because it gives me such a peace of mind
-                    knowing an AI will never forget to do my taxes like I do all
-                    the time, thank you guys.
-                  </Typography>
-                  <Typography className={classes.sliderheading}>
-                    Jude Thorn - Online Marketer
+                    Ronda Louis - Salon Owner
                   </Typography>
                 </Box>
               </Grid>
